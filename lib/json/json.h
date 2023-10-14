@@ -3,7 +3,7 @@
 // MIT License
 
 #pragma once
-
+#include <serializer.h>
 #ifdef __cplusplus
 
 #if __cplusplus < 201103L && (!defined(_MSC_VER) || _MSC_VER < 1910)
