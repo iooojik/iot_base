@@ -13,13 +13,11 @@ void handleWifiSettings()
         return;
     }
     const char *ssid = doc["ssid"];
-    bool result = write2Eeprom(SSID_NAME, ssid);
+    int result = write2Eeprom(SSID_NAME, ssid);
     if (result)
     {
         const char *pass = doc["pass"];
-        result = write2Eeprom(sizeof(ssid), pass);
-        Serial.println(readFromEeprom(sizeof(ssid)));
-        Serial.println(readFromEeprom(SSID_NAME));
+        result = write2Eeprom(result, pass);
         Serial.println("saved new ssid and pass");
     }
     const int capacity = JSON_OBJECT_SIZE(1);

@@ -7,7 +7,7 @@
 String readFromEeprom(int addr);
 
 // запись строки data, начиная с адреса addr
-bool write2Eeprom(int addr, String data);
+int write2Eeprom(int addr, String data);
 
 
 bool flushall();

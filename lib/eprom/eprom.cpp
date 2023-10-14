@@ -15,7 +15,7 @@ bool commmit()
 }
 
 // запись строки data, начиная с адреса addr
-bool write2Eeprom(int addr, String data)
+int write2Eeprom(int addr, String data)
 {
     int len = data.length();
     EEPROM.write(addr, len);
@@ -23,7 +23,9 @@ bool write2Eeprom(int addr, String data)
     {
         EEPROM.write(addr + 1 + i, data[i]);
     }
-    return commmit();
+    commmit();
+    delay(100);
+    return addr + 1 + len;
 }
 
 // получение данных, начиная с addr
@@ -32,7 +34,6 @@ String readFromEeprom(int addr)
     String str;
     int len = EEPROM.read(addr);
     str.reserve(len);
-    Serial.println(len);
     for (int i = 0; i < len; i++)
     {
         str += (char)EEPROM.read(addr + 1 + i);
@@ -48,5 +49,4 @@ bool flushall()
         EEPROM.write(i, 0);
     }
     return commmit();
-    ;
 }
