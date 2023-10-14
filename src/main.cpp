@@ -1,6 +1,6 @@
 #include <srv.h>
 
-/* Set these to your desired credentials. */
+/* Креды от wifi точки */
 const char *ssid = "top_secret";
 const char *password = "toppppecret";
 
