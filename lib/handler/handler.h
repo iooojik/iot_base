@@ -3,6 +3,9 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
+#include <json.h>
 
 
 void runHandler(const char *ssid, const char *password);
+
+void handle_command();

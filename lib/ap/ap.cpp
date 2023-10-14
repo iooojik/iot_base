@@ -17,10 +17,11 @@ void handleWifiSettings()
     if (result)
     {
         const char *pass = doc["pass"];
-        result = write2Eeprom(SSID_PASS, pass);
+        result = write2Eeprom(sizeof(ssid), pass);
+        Serial.println(readFromEeprom(sizeof(ssid)));
+        Serial.println(readFromEeprom(SSID_NAME));
         Serial.println("saved new ssid and pass");
     }
-
     const int capacity = JSON_OBJECT_SIZE(1);
     StaticJsonDocument<capacity> respDoc;
     if (result)
@@ -33,7 +34,7 @@ void handleWifiSettings()
     }
     int len = measureJson(respDoc);
     char output[len];
-    serializeJson(doc, output, sizeof(output));
+    serializeJson(respDoc, output, sizeof(output));
     server.send(200, "application/json", output);
 }
 
@@ -64,7 +65,6 @@ void runServer(const char *ssid, const char *password)
 
 void setupAP(const char *ssid, const char *password)
 {
-    EEPROM.begin(MAX_BUFF_SIZE);
     runServer(ssid, password);
 }
 

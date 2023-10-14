@@ -2,4 +2,6 @@
 #include <ap.h>
 #include <handler.h>
 
-void setupWifiMode(const char *ssid, const char *password);
+int setupWifiMode(const char *ssid, const char *password);
+
+int updateMode();

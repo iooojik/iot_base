@@ -1,14 +1,7 @@
 #include <eprom.h>
 
-// запись строки data, начиная с адреса addr
-bool write2Eeprom(int addr, String data)
+bool commmit()
 {
-    int len = data.length();
-    EEPROM.write(addr, len);
-    for (int i = 0; i < len; i++)
-    {
-        EEPROM.write(addr + 1 + i, data[i]);
-    }
     bool result = EEPROM.commit();
     if (result)
     {
@@ -21,15 +14,39 @@ bool write2Eeprom(int addr, String data)
     return result;
 }
 
+// запись строки data, начиная с адреса addr
+bool write2Eeprom(int addr, String data)
+{
+    int len = data.length();
+    EEPROM.write(addr, len);
+    for (int i = 0; i < len; i++)
+    {
+        EEPROM.write(addr + 1 + i, data[i]);
+    }
+    return commmit();
+}
+
 // получение данных, начиная с addr
 String readFromEeprom(int addr)
 {
     String str;
     int len = EEPROM.read(addr);
     str.reserve(len);
+    Serial.println(len);
     for (int i = 0; i < len; i++)
     {
         str += (char)EEPROM.read(addr + 1 + i);
     }
     return str;
+}
+
+// полная очистка памяти
+bool flushall()
+{
+    for (int i = 0; i < MAX_BUFF_SIZE; i++)
+    {
+        EEPROM.write(i, 0);
+    }
+    return commmit();
+    ;
 }

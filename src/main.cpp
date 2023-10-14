@@ -4,12 +4,29 @@
 const char *ssid = "top_secret";
 const char *password = "toppppecret";
 
+int mode = 0;
+
 void setup()
 {
-  setupWifiMode(ssid, password);
+  EEPROM.begin(MAX_BUFF_SIZE);
+  mode = setupWifiMode(ssid, password);
 }
 
 void loop()
 {
-  startHttpServer();
+  int m = updateMode();
+  if (m != mode)
+  {
+    mode = m;
+    mode = setupWifiMode(ssid, password);
+  }
+  if (mode == 1)
+  {
+    startHttpServer();
+  }
+  else if (mode == 0)
+  {
+    handle_command();
+  }
+  delay(1000);
 }
