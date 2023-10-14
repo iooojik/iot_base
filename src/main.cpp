@@ -1,10 +1,10 @@
-#include <server.h>
+#include <srv.h>
 
 /* Set these to your desired credentials. */
 const char *ssid = "top_secret";
 const char *password = "toppppecret";
 
-[[maybe_unused]] void setup()
+void setup()
 {
   setupAP(ssid, password);
 }
