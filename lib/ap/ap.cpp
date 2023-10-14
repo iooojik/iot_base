@@ -1,15 +1,10 @@
 #include <ap.h>
 
-#define MAX_BUFF_SIZE 256
-#define SSID_NAME 0
-#define SSID_PASS MAX_BUFF_SIZE
-
 ESP8266WebServer server(80);
-ESP8266WiFiMulti WiFiMulti;
 
 void handleWifiSettings()
 {
-    StaticJsonDocument<MAX_BUFF_SIZE*3> doc;
+    StaticJsonDocument<MAX_BUFF_SIZE * 3> doc;
     DeserializationError error = deserializeJson(doc, server.arg("plain"));
     if (error)
     {
@@ -36,7 +31,9 @@ void handleWifiSettings()
     {
         respDoc["status"] = "error";
     }
-    char* output = serialize(respDoc);
+    int len = measureJson(respDoc);
+    char output[len];
+    serializeJson(doc, output, sizeof(output));
     server.send(200, "application/json", output);
 }
 
@@ -46,10 +43,11 @@ void handleInfoPath()
     StaticJsonDocument<capacity> doc;
     doc["device"] = "humidity_sensor_v1";
     doc["key"] = "123456";
-    char* output = serialize(doc);
+    int len = measureJson(doc);
+    char output[len];
+    serializeJson(doc, output, sizeof(output));
     server.send(200, "application/json", output);
 }
-
 
 void runServer(const char *ssid, const char *password)
 {
@@ -69,7 +67,6 @@ void setupAP(const char *ssid, const char *password)
     EEPROM.begin(MAX_BUFF_SIZE);
     runServer(ssid, password);
 }
-
 
 void startHttpServer()
 {

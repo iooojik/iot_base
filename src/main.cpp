@@ -6,7 +6,7 @@ const char *password = "toppppecret";
 
 void setup()
 {
-  setupAP(ssid, password);
+  setupWifiMode(ssid, password);
 }
 
 void loop()
