@@ -41,7 +41,7 @@ void handleInfoPath()
     const int capacity = JSON_OBJECT_SIZE(2);
     StaticJsonDocument<capacity> doc;
     doc["device"] = "humidity_sensor_v1";
-    doc["key"] = "123456";
+    doc["key"] = SOURCE;
     int len = measureJson(doc);
     char output[len];
     serializeJson(doc, output, sizeof(output));

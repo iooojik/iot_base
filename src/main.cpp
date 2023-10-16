@@ -11,7 +11,6 @@ void setup()
   Serial.begin(115200);
   delay(1000);
   EEPROM.begin(MAX_BUFF_SIZE);
-  flushall();
   mode = setupWifiMode(ssid, password);
 }
 
